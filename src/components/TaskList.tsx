@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks"
-import { addTask, removeTask, toggleTask } from "../store/slices/tasksSlice";
+import { addTask, removeTask, selectAllTasks, toggleTask } from "../store/slices/tasksSlice";
 
 export function TaskList() {
     // Disparar ações: Dispatch
     // Resgatar informações do estado: Selector
     const dispatch = useAppDispatch();
-    const tasks = useAppSelector(state => state.tasks);
+    const tasks = useAppSelector(selectAllTasks);
     const [taskTitle, setTaskTitle] = useState("");
 
     function handleAddTask() {
