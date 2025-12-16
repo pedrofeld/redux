@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks"
-import { addTask, removeTask } from "../store/slices/tasksSlice";
+import { addTask, removeTask, toggleTask } from "../store/slices/tasksSlice";
 
 export function TaskList() {
     // Disparar ações: Dispatch
@@ -23,6 +23,10 @@ export function TaskList() {
         dispatch(removeTask(id));
     }
 
+    function handleToggleTask(id: number) {
+        dispatch(toggleTask(id));
+    }
+
     return (
         <>
             <h1>Lista de Tarefas</h1>
@@ -36,7 +40,14 @@ export function TaskList() {
             <ul>
                 {tasks.map(task => (
                     <li key={task.id}>
-                        <span>{task.title}</span>
+                        <span 
+                            style={{
+                                textDecoration: task.completed ? 'line-through' : 'none'
+                            }} 
+                            onClick={() => handleToggleTask(task.id)}
+                        >
+                            {task.title}
+                        </span>
                         <button onClick={() => handleRemoveTask(task.id)}>Remover</button>
                     </li>
                 ))}
